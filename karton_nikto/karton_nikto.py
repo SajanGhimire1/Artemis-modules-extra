@@ -125,3 +125,4 @@ class Nikto(ArtemisBase):  # type: ignore
 
 if __name__ == "__main__":
     Nikto.parallel_loop()
+    
