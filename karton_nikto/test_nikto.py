@@ -3,14 +3,15 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from artemis.binds import Service, TaskStatus, TaskType
-from karton.core import Task
-
 from artemis.modules.karton_nikto import Nikto, build_nikto_command, parse_nikto_output
+from karton.core import Task
 
 
 class NiktoUnitTestCase(unittest.TestCase):
     def test_build_nikto_command(self) -> None:
-        cmd = build_nikto_command("https://example.com", timeout_seconds=120, tuning="12", user_agent="ArtemisBot")
+        cmd = build_nikto_command(
+            "https://example.com", timeout_seconds=120, tuning="12", user_agent="ArtemisBot"
+        )
         self.assertEqual(
             cmd,
             [
@@ -63,7 +64,10 @@ class NiktoUnitTestCase(unittest.TestCase):
         self.assertEqual(kwargs["status"], TaskStatus.INTERESTING)
         self.assertEqual(len(kwargs["data"]), 1)
 
-    @patch("artemis.modules.karton_nikto.subprocess.run", side_effect=subprocess.TimeoutExpired(cmd=["nikto"], timeout=5))
+    @patch(
+        "artemis.modules.karton_nikto.subprocess.run",
+        side_effect=subprocess.TimeoutExpired(cmd=["nikto"], timeout=5),
+    )
     def test_nikto_run_handles_timeout(self, _mock_run: MagicMock) -> None:
         module = Nikto.__new__(Nikto)
         module.log = MagicMock()
