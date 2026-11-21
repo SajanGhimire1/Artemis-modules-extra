@@ -107,8 +107,7 @@ class Nikto(ArtemisBase):  # type: ignore
 
         if findings:
             messages = [
-                f"[{item.get('id', 'nikto')}] {item.get('msg') or item.get('url') or 'Finding'}"
-                for item in findings
+                f"[{item.get('id', 'nikto')}] {item.get('msg') or item.get('url') or 'Finding'}" for item in findings
             ]
             status = TaskStatus.INTERESTING
             status_reason = ", ".join(sorted(set(messages)))

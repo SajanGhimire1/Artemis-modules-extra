@@ -5,11 +5,7 @@ from unittest.mock import MagicMock, patch
 from artemis.binds import Service, TaskStatus, TaskType
 from karton.core import Task
 
-from artemis.modules.karton_nikto import (
-    Nikto,
-    build_nikto_command,
-    parse_nikto_output,
-)
+from artemis.modules.karton_nikto import Nikto, build_nikto_command, parse_nikto_output
 
 
 class NiktoUnitTestCase(unittest.TestCase):
