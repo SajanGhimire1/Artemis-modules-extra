@@ -86,7 +86,9 @@ class Nikto(ArtemisBase):  # type: ignore
             check=False,
         )
         if completed.returncode not in (0, 1) and not completed.stdout.strip():
-            raise RuntimeError(f"Nikto exited with code {completed.returncode}: {completed.stderr.strip()}")
+            raise RuntimeError(
+                f"Nikto exited with code {completed.returncode}: {completed.stderr.strip()}"
+            )
         return parse_nikto_output(completed.stdout)
 
     def run(self, current_task: Task) -> None:
@@ -107,7 +109,8 @@ class Nikto(ArtemisBase):  # type: ignore
 
         if findings:
             messages = [
-                f"[{item.get('id', 'nikto')}] {item.get('msg') or item.get('url') or 'Finding'}" for item in findings
+                f"[{item.get('id', 'nikto')}] {item.get('msg') or item.get('url') or 'Finding'}"
+                for item in findings
             ]
             status = TaskStatus.INTERESTING
             status_reason = ", ".join(sorted(set(messages)))
